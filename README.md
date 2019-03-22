@@ -13,3 +13,7 @@ We don’t use python simply because
 1.	As already mentioned there are multiple blogs , projects, repos showcasing how to use python with different deep learning frameworks like Torch ,Keras ,Caffee, Tensorflow for image recognition
 2.	Image detection and object recognition is an upcoming field in area of digitalization , however most systems and industries that need to be digitalized run on java based platforms consequently it might be difficult for them use languages like python in their existing architecture.
 3.	Though there are hybrid architectures that attempt to leverage both older platforms with newer frameworks like tensorflow along with python these types of architectures often lead to speed scalability issues thus making project deployments and maintainace difficult 
+
+## Why we not use tensorflow for this project :
+
+As this blog explains Running deep learning models is computationally expensive. And when it comes to image processing with computer vision . it’s hard to run computer vision models on edge devices like Raspberry Pi, and making a portable solution is difficult with deep learning libraries like TensorFlow or PyTorch
