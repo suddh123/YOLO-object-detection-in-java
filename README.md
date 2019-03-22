@@ -28,3 +28,8 @@ For this project we will use  the following:
 
 ##We will discuss the code in detail in a blogpost which i will publish shortly for now lets straight away get into coding
 ### For this its assumed user has familarity on Opencv and YOLO as well as their setup , a blog post shortly will explain these as well
+
+##This is the result i get in a CPU based sysytem 
+
+
+
