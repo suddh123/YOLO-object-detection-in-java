@@ -24,3 +24,7 @@ For this project we will use  the following:
 1.	JAVA SE 8   get it here : https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
 2.	 OpenCV 4.0  , get it here : https://opencv.org/
 3.	TIBCO Streambase : I use TIBCO  Streambase a complex event processing engine to compile and run this project but you can use any standard IDE
+
+
+##We will discuss the code in detail in a blogpost which i will publish shortly for now lets straight away get into coding
+### For this its assumed user has familarity on Opencv and YOLO as well as their setup , a blog post shortly will explain these as well
