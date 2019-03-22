@@ -17,3 +17,10 @@ We don’t use python simply because
 ## Why we not use tensorflow for this project :
 
 As this blog explains Running deep learning models is computationally expensive. And when it comes to image processing with computer vision . it’s hard to run computer vision models on edge devices like Raspberry Pi, and making a portable solution is difficult with deep learning libraries like TensorFlow or PyTorch
+
+
+### What is our stack :
+For this project we will use  the following:
+1.	JAVA SE 8   get it here : https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html 
+2.	 OpenCV 4.0  , get it here : https://opencv.org/
+3.	TIBCO Streambase : I use TIBCO  Streambase a complex event processing engine to compile and run this project but you can use any standard IDE
