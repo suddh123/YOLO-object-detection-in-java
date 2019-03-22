@@ -40,25 +40,25 @@ public class yolo {
         List<Integer> outLayers = net.getUnconnectedOutLayers().toList();
         List<String> layersNames = net.getLayerNames();
 
-        outLayers.forEach((item) -> names.add(layersNames.get(item - 1)));
+        outLayers.forEach((item) -> names.add(layersNames.get(item - 1)));//unfold and create R-CNN layers from the loaded YOLO model//
         return names;
 	}
 	public static void main(String[] args) throws InterruptedException {
-		System.load("C:\\Users\\subhatta\\Downloads\\opencv\\build\\java\\x64\\opencv_java400.dll");
-		 String modelWeights = "D:\\yolov3.weights";
-	        String modelConfiguration = "D:\\yolov3.cfg.txt";
-	        String filePath = "D:\\cars.mp4";
-	        VideoCapture cap = new VideoCapture(filePath);
-	         Mat frame = new Mat();
+		System.load("C:\\Users\\subhatta\\Downloads\\opencv\\build\\java\\x64\\opencv_java400.dll"); // Load the openCV 4.0 dll //
+		 String modelWeights = "D:\\yolov3.weights"; //Download and load only wights for YOLO , this is obtained from official YOLO site//
+	        String modelConfiguration = "D:\\yolov3.cfg.txt";//Download and load cfg file for YOLO , can be obtained from official site//
+	        String filePath = "D:\\cars.mp4"; //My video  file to be analysed//
+	        VideoCapture cap = new VideoCapture(filePath);// Load video using the videocapture method//
+	         Mat frame = new Mat(); // define a matrix to extract and store pixel info from video//
 	        Mat dst = new Mat ();
 	         //cap.read(frame);
-	         JFrame jframe = new JFrame("Video");
+	         JFrame jframe = new JFrame("Video"); // the lines below create a frame to display the resultant video with object detection and localization//
 	         JLabel vidpanel = new JLabel();
 	         jframe.setContentPane(vidpanel);
 	         jframe.setSize(600, 600);
-	         jframe.setVisible(true);
+	         jframe.setVisible(true);// we instantiate the frame here//
 
-	        Net net = Dnn.readNetFromDarknet(modelConfiguration, modelWeights);
+	        Net net = Dnn.readNetFromDarknet(modelConfiguration, modelWeights); //OpenCV DNN supports models trained from various frameworks like Caffe and TensorFlow. It also supports various networks architectures based on YOLO//
 	        //Thread.sleep(5000);
 
 	        //Mat image = Imgcodecs.imread("D:\\yolo-object-detection\\yolo-object-detection\\images\\soccer.jpg");
@@ -75,12 +75,12 @@ public class yolo {
 	               
 	                 
 	               
-	        Mat blob = Dnn.blobFromImage(frame, 0.00392, sz, new Scalar(0), true, false);
+	        Mat blob = Dnn.blobFromImage(frame, 0.00392, sz, new Scalar(0), true, false); // We feed one frame of video into the network at a time, we have to convert the image to a blob. A blob is a pre-processed image that serves as the input.//
 	        net.setInput(blob);
 
 	       
 
-	        net.forward(result, outBlobNames);
+	        net.forward(result, outBlobNames); //Feed forward the model to get output //
 	     
 	   
 	            
@@ -88,7 +88,7 @@ public class yolo {
 	       // outBlobNames.forEach(System.out::println);
 	       // result.forEach(System.out::println);
 
-	        float confThreshold = 0.6f;
+	        float confThreshold = 0.6f; //Insert thresholding beyond which the model will detect objects//
 	        List<Integer> clsIds = new ArrayList<>();
 	        List<Float> confs = new ArrayList<>();
 	        List<Rect> rects = new ArrayList<>();
@@ -106,7 +106,7 @@ public class yolo {
 	                Point classIdPoint = mm.maxLoc;
 	                if (confidence > confThreshold)
 	                {
-	                    int centerX = (int)(row.get(0,0)[0] * frame.cols());
+	                    int centerX = (int)(row.get(0,0)[0] * frame.cols()); //scaling for drawing the bounding boxes//
 	                    int centerY = (int)(row.get(0,1)[0] * frame.rows());
 	                    int width   = (int)(row.get(0,2)[0] * frame.cols());
 	                    int height  = (int)(row.get(0,3)[0] * frame.rows());
@@ -124,7 +124,7 @@ public class yolo {
 	        Rect[] boxesArray = rects.toArray(new Rect[0]);
 	        MatOfRect boxes = new MatOfRect(boxesArray);
 	        MatOfInt indices = new MatOfInt();
-	        Dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThresh, indices);
+	        Dnn.NMSBoxes(boxes, confidences, confThreshold, nmsThresh, indices); //We draw the bounding boxes for objects here//
 	        
 	        int [] ind = indices.toArray();
 	        int j=0;
@@ -139,7 +139,7 @@ public class yolo {
 	        }
 	       // Imgcodecs.imwrite("D://out.png", image);
 	        //System.out.println("Image Loaded");
-	        ImageIcon image = new ImageIcon(Mat2bufferedImage(frame));
+	        ImageIcon image = new ImageIcon(Mat2bufferedImage(frame)); //setting the results into a frame and initializing it //
        	 vidpanel.setIcon(image);
 	         vidpanel.repaint();
 	        // System.out.println(j);
@@ -151,7 +151,7 @@ public class yolo {
 	        
 	        
 //	}
-	private static BufferedImage Mat2bufferedImage(Mat image) {
+	private static BufferedImage Mat2bufferedImage(Mat image) {   // The class described here  takes in matrix and renders the video to the frame  //
 		MatOfByte bytemat = new MatOfByte();
 		Imgcodecs.imencode(".jpg", image, bytemat);
 		byte[] bytes = bytemat.toArray();
